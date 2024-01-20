@@ -25,5 +25,11 @@ const chordTemplates = [
   V7^2/I`],
 
   ["Upper Structure",
-  `/*@1*/ US bIII/I7(o1)(o5) bVm^2/I7(o1)(o5)`],
+  `US bIII/I7(o1)(o5) bVm^2/I7(o1)(o5)`],
+
+  ["Strings2",
+  `Str.2 Key=F IM7`],
+
+  ["Choir",
+  `Choir Key=D IM7`],
 ];
