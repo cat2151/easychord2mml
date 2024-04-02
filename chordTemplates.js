@@ -27,9 +27,22 @@ const chordTemplates = [
   ["Upper Structure",
   `US bIII/I7(o1)(o5) bVm^2/I7(o1)(o5)`],
 
+  ["Strings1",
+  `Str.1 Key=F IM7,`],
+
   ["Strings2",
   `Str.2 Key=F IM7`],
 
   ["Choir",
   `Choir Key=D IM7`],
+
+  ["Octave down",
+  `Octave down bVI bVII`],
+
+  ["BPM",
+  `BPM180 Im bVI, bVII, I`],
+
+  ["小節線",
+  `Bass is root. Str.1 BPM130
+  I | bIII | IV | bVI bVII`],
 ];
