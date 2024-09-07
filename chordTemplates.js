@@ -27,6 +27,9 @@ const chordTemplates = [
   ["Upper Structure",
   `US bIII/I7(o1)(o5) bVm^2/I7(o1)(o5)`],
 
+  ["四度堆積",
+    `Key=D bass is root. Strings1 | I4.2 I4.3 | I4.4 I4.5 I4.6 |`],
+
   ["Strings1",
   `Str.1 Key=F IM7,`],
 
