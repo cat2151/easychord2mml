@@ -48,4 +48,8 @@ const chordTemplates = [
   ["小節線",
   `Bass is root. Str.1 BPM130
   I | bIII | IV | bVI bVII`],
+
+  ["タイムシフト機能 /*!!*/ を書いた場所から演奏します",
+    `Bass is root. Str.1 BPM130
+    I | bIII | IV | bVI /*!!*/ bVII`],
 ];
