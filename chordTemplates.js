@@ -18,6 +18,12 @@ const chordTemplates = [
   `Key=E, bass is root.
           I IV V`],
 
+  ["drop2 / drop4 / drop2and4",
+    `Key=Ab, Octave down, BPM100. |
+      E.Piano2 drop2 IM7 IVM7 V6 |
+      Str.2 drop4 IM7 IVM7 V6 |
+      Choir drop2and4 IM7 IVM7 V6`],
+
   ["chord on bass note",
   `Key=F,
   I^1'/I IIIm'/I
