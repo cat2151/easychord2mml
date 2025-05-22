@@ -6,16 +6,24 @@ easychord.mmlId = "mml";
 easychord.chordTemplateId = "#chord-template";
 
 easychord.init = function() {
-  easychord.chord = document.querySelector("#" + easychord.chordId);
-  easychord.chord.addEventListener("input", easychord.play);
-
+  setupChord(easychord);
   easychord.mml = document.querySelector("#" + easychord.mmlId);
-
   setupSelect(easychord);
   setupKeyBind(easychord);
 
   easyabcjs6.play = easychord.play;
   easyabcjs6.init();
+
+  function setupChord(easychord) {
+    easychord.chord = document.querySelector("#" + easychord.chordId);
+    easychord.chord.addEventListener("input", easychord.play);
+
+    const params = new URLSearchParams(window.location.search);
+    const textParam = params.get('text');
+    if (textParam !== null) {
+      easychord.chord.value = textParam;
+    }
+  }
 
   function setupSelect(easychord) {
     easychord.select = document.querySelector(easychord.chordTemplateId);
