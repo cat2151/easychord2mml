@@ -58,4 +58,10 @@ const chordTemplates = [
   ["タイムシフト機能 /*!!*/ を書いた場所から演奏します",
     `Bass is root. Str.1 BPM130
     I | bIII | IV | /*!!*/ bVI bVII`],
+
+  ["コメント機能",
+    `Bass is root. Key=C
+    I^1'/ /*/* % 改行が必要なコメント
+    */*/
+    V7^2/, | /*/* [r: 改行なしのコメント(remark) ] */*/ I^1'/ |`],
 ];
