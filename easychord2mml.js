@@ -110,8 +110,11 @@ easychord.playSub = function(chord) {
   let mml = "";
   let abc = "";
 
+  // プリプロセスを挟む
+  const preprocessedChord = preprocessChord(chord);
+
   try {
-    mml = window.chord2mml.parse(chord);
+    mml = window.chord2mml.parse(preprocessedChord);
     easychord.mml.value = mml;
     abc = window.mml2abc.parse(mml);
   } catch (error) {
@@ -120,6 +123,86 @@ easychord.playSub = function(chord) {
 
   easyabcjs6.abcNotation.value = abc;
   easyabcjs6.playSub(abc, ABCJS, easyabcjs6.musicScoreId);
+}
+
+function preprocessChord(chord) {
+  const transforms = [replaceHyphenToDot, replaceMinorRomanNumerals];
+
+  return findParsableChordVariant(chord);
+
+  // コード進行表記の方言を、できる範囲で全て試して、エラーにならないものを返す
+  function findParsableChordVariant(chord) {
+    const tried = new Set();
+    for (const seq of getAllCombinations(transforms)) {
+      let candidate = chord;
+      for (const fn of seq) {
+        candidate = fn(candidate);
+      }
+      if (tried.has(candidate)) continue;
+      tried.add(candidate);
+      try {
+        window.chord2mml.parse(candidate);
+        return candidate;
+      } catch (e) {}
+    }
+    return chord;
+  }
+
+  // 方言：ハイフンを中点に置換
+  function replaceHyphenToDot(chord) {
+    return chord.replace(/-/g, "・");
+  }
+
+  // 方言：ローマ数字マイナー表記を統一
+  function replaceMinorRomanNumerals(chord) {
+    return chord
+      .replace(/\bvii\b/g, "VIIm")
+      .replace(/\bvi\b/g, "VIm")
+      .replace(/\bv\b/g, "Vm")
+      .replace(/\biv\b/g, "IVm")
+      .replace(/\biii\b/g, "IIIm")
+      .replace(/\bii\b/g, "IIm")
+      .replace(/\bi\b/g, "Im");
+  }
+
+  // 全ての変換関数の組み合わせ（順列）を生成
+  function getAllCombinations(funcs) {
+    const results = [];
+    const n = funcs.length;
+    // 2^n通りの部分集合（順序あり）を生成
+    for (let i = 0; i < (1 << n); i++) {
+      let seq = [];
+      for (let j = 0; j < n; j++) {
+        if (i & (1 << j)) seq.push(funcs[j]);
+      }
+      // 恒等変換（何もしない）は先頭にのみ許可
+      if (seq.length === 0) seq = [x => x];
+      results.push(seq);
+    }
+    // 恒等変換以外は順序を考慮して全順列を生成
+    const perms = [];
+    for (const seq of results) {
+      if (seq.length <= 1) {
+        perms.push(seq);
+      } else {
+        perms.push(...permute(seq));
+      }
+    }
+    return perms;
+  }
+
+  // 配列の順列生成
+  function permute(arr) {
+    if (arr.length <= 1) return [arr];
+    const result = [];
+    for (let i = 0; i < arr.length; i++) {
+      const rest = arr.slice(0, i).concat(arr.slice(i + 1));
+      for (const p of permute(rest)) {
+        result.push([arr[i], ...p]);
+      }
+    }
+    return result;
+  }
 }
 
 easychord.init();
