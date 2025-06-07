@@ -155,14 +155,15 @@ function preprocessChord(chord) {
 
   // 方言：ローマ数字マイナー表記を統一
   function replaceMinorRomanNumerals(chord) {
+    // 注意、後ろの単語境界は外した。iii7 を IIIm7 に変換する用。
     return chord
-      .replace(/\bvii\b/g, "VIIm")
-      .replace(/\bvi\b/g, "VIm")
-      .replace(/\bv\b/g, "Vm")
-      .replace(/\biv\b/g, "IVm")
-      .replace(/\biii\b/g, "IIIm")
-      .replace(/\bii\b/g, "IIm")
-      .replace(/\bi\b/g, "Im");
+      .replace(/\bvii/g, "VIIm")
+      .replace(/\biii/g, "IIIm")
+      .replace(/\bvi/g, "VIm")
+      .replace(/\biv/g, "IVm")
+      .replace(/\bii/g, "IIm")
+      .replace(/\bv/g, "Vm")
+      .replace(/\bi/g, "Im");
   }
 
   // 全ての変換関数の組み合わせ（順列）を生成
