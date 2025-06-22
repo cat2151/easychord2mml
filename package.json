@@ -1,6 +1,6 @@
 {
   "name": "easychord2mml",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A library for using chord2mml and abcjs easily in the browser.",
   "main": "easychord2mml.js",
   "author": "cat2151",
