@@ -22,7 +22,6 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          npm version patch -m "release: v%s [skip ci]"
+          npm version patch -m "release: v%s" # 備忘、[skip ci] を外したのは、後続処理のrelaese.ymlをGitHub Actionsに実行させる用
           git push origin HEAD
-          sleep 30 # 「次のrelease.ymlが実行されない問題」の対策用
           git push origin --tags
