@@ -27,6 +27,7 @@ jobs:
         run: |
           git push origin HEAD
           git push origin --tags
+          sleep 3  # 「後続処理のCreate GitHub Releaseにてタグが見つからずにGitHUb Actionsが失敗」の対策用
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
