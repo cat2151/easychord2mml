@@ -1,27 +1,17 @@
-name: Version Bump
+permissions:
+  contents: write
 
-on:
-  push:
-    branches:
-      - main
-      - master
+steps:
+  - uses: actions/checkout@v4
+    with: fetch-depth: 0
 
-jobs:
-  bump:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - name: Bump patch version and push tag
-        run: |
-          git config user.name github-actions
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          npm version patch -m "release: v%s" # 備忘、[skip ci] を外したのは、後続処理のrelaese.ymlをGitHub Actionsに実行させる用
-          git push origin HEAD
-          git push origin --tags
+  - name: Bump version
+    run: |
+      git config user.name github-actions
+      git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      npm version patch -m "release: v%s"
+
+  - name: Push tag
+    run: |
+      TAG=$(git describe --tags --abbrev=0)
+      git push origin "refs/tags/$TAG"
