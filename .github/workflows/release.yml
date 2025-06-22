@@ -25,6 +25,10 @@ jobs:
       - name: Show tags on HEAD
         run: |
           git tag --points-at HEAD
+      - name: Show debug info (GITHUB_REF)
+        run: |
+          echo "GITHUB_REF=$GITHUB_REF"
+          echo "github.ref=${{ github.ref }}"
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
