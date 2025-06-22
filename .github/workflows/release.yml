@@ -2,9 +2,8 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
-      - master
+    tags:
+      - 'v*'
 
 jobs:
   release:
@@ -18,16 +17,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Bump patch version
-        run: |
-          git config user.name github-actions
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com" # agentが最初に生成したときは別の内容だったがエラー。学習誤りを想定。改めてagentにエラーメッセージを投げたところこれになった
-          npm version patch -m "release: v%s [skip ci]"
-      - name: Push changes and tags
-        run: |
-          git push origin HEAD
-          git push origin --tags
-          sleep 30  # 「後続処理のCreate GitHub Releaseにてタグが見つからずにGitHUb Actionsが失敗」の対策用。3でエラーだったので切り分けのため30にしてみる
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
