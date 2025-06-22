@@ -18,6 +18,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - name: Show git tags
+        run: |
+          git fetch --tags
+          git tag -l
+      - name: Show tags on HEAD
+        run: |
+          git tag --points-at HEAD
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
