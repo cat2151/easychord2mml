@@ -1,17 +1,28 @@
+name: Version Bump
+
+on:
+  push:
+    branches:
+      - main
+
 permissions:
   contents: write
 
-steps:
-  - uses: actions/checkout@v4
-    with: fetch-depth: 0
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-  - name: Bump version
-    run: |
-      git config user.name github-actions
-      git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      npm version patch -m "release: v%s"
+      - name: Set up Git
+        run: |
+          git config user.name github-actions
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-  - name: Push tag
-    run: |
-      TAG=$(git describe --tags --abbrev=0)
-      git push origin "refs/tags/$TAG"
+      - name: Bump version and push tag
+        run: |
+          NEW_VERSION=$(npm version patch -m "release: %s")
+          git push origin HEAD
+          git push origin "$NEW_VERSION"
