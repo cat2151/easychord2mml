@@ -24,4 +24,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           npm version patch -m "release: v%s [skip ci]"
           git push origin HEAD
+          sleep 5 # 「次のrelease.ymlが実行されない問題」の対策用
           git push origin --tags
